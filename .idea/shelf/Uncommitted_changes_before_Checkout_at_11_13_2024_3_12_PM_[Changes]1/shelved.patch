@@ -1,0 +1,312 @@
+Index: src/diceBet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.Scanner;\r\n\r\npublic class diceBet {\r\n    static Scanner sc = new Scanner(System.in);\r\n    public static void main(String[] args) {\r\n        double accBalance = 100.00;\r\n        double[] multiplier = {0.02,0.04,0.06,0.08,0.10,0.12};\r\n        double mult =0;\r\n        double winnings;\r\n        int bet;\r\n        int odds;\r\n        int dice;\r\n        int diceMax= 6;\r\n        int diceMin= 1;\r\n        String keepPlaying;\r\n\r\n\r\n        do{\r\n            //......................................................\r\n            //Validation Steps to Ensure the user inputs are correct\r\n            //.......................................................\r\n            int count= 0;\r\n            boolean validBet;\r\n            boolean validOdd;\r\n            boolean validMult;\r\n\r\n            do{\r\n                System.out.println(\"Account Balance: \" + accBalance);\r\n                System.out.print(\"Place your betting amount: \");\r\n                bet = sc.nextInt();\r\n                validBet = true;\r\n                if ((bet <= 0) || (bet > accBalance)){\r\n                    validBet = false;\r\n                    System.out.println(\"\\nInvalid bet, \" + (bet > accBalance? \"insufficient balance\":\"bet amount to low\") + \"! Try again\");\r\n                }\r\n            }\r\n            while(!validBet);\r\n\r\n            do{\r\n                System.out.print(\"\\nWhat number do you think the dice will land on between 1 and 6: \");\r\n                odds = sc.nextInt();\r\n                validOdd = true;\r\n                if( (odds <= 0) || (odds >6)){\r\n                    validOdd = false;\r\n                    System.out.println(\"\\nOut of ranch, Try again\");\r\n                }\r\n            }while( !validOdd);\r\n\r\n            System.out.println(\"Here are your odd multipliers: \");\r\n            while(count < multiplier.length){\r\n                System.out.println(count + \" : \"+multiplier[count] + \"%\");\r\n                count ++;\r\n            }\r\n            do {\r\n            try{\r\n                System.out.print(\"\\nSelect a number for the corresponding multiplier: \");\r\n                mult = multiplier[sc.nextInt()];\r\n                System.out.println(\"\\nYou hava chosen: \" + mult + \"% as your multiplier.\");\r\n                validMult = true;\r\n\r\n            } catch (ArrayIndexOutOfBoundsException e) {\r\n                System.out.println(\"\\nSorry you selection is out of bounds!, Try again!.\");\r\n                validMult = false;\r\n            }\r\n            }\r\n            while(!validMult);\r\n\r\n            //...............................................\r\n            //Random Generation step to play the betting game\r\n            //...............................................\r\n\r\n            System.out.println(\"\\nRolling Dice!..... \");\r\n            dice = (int)(Math.random() * (diceMax-diceMin+1)) + diceMin;\r\n            System.out.println(\"\\nDice roll landed on: \" + dice+ \". You chose \"+ (dice != odds? \"Wrong :(\": \"Right :)\"));\r\n\r\n            //....................................................\r\n            //Comparing numbers to see if Odds match the dice roll.\r\n            //....................................................\r\n\r\n            if ( dice != odds){\r\n                accBalance -= bet;\r\n                System.out.println(\"Sorry your bet was not successful! :(\");\r\n                System.out.println(\"\\nYou now hava a balance of: \"+ accBalance + \"$\");\r\n\r\n            }else {\r\n                winnings = Math.round(bet * mult);\r\n                accBalance += winnings;\r\n                System.out.println(\"Congratulations your bet was successful you won: \"+ winnings + \"$.\");\r\n                System.out.println(\"\\nYou now hava a balance of: \"+ accBalance + \"$\");\r\n            }\r\n\r\n            //.................................................................................\r\n            // Checking the current accBalance to determine if the game should end or continue.\r\n            //.................................................................................\r\n\r\n\r\n            if (accBalance <= 0){\r\n                accBalance = 0;\r\n                System.out.println(\"\\nYour current account balance is: \" + accBalance);\r\n                System.out.println(\"\\nYou can't place any new bets! The Game has ended Try a new game. :)\");\r\n//                validPlay = false;\r\n                break;\r\n            }else{\r\n                System.out.println(\"Would you like to keep playing: \" + \"Y or N\");\r\n                keepPlaying = sc.next();\r\n                if (keepPlaying.equalsIgnoreCase(\"N\")){\r\n                    System.out.println( \"Thank you for playing the DiceGame. Hope you enjoyed it. :)\");\r\n                    break;\r\n                }else if (keepPlaying.equalsIgnoreCase(\"Y\")){\r\n                    System.out.println(\"Yeh!!. Let's Keep Playing.\");\r\n                }else{\r\n                    System.out.println(\"Incorrect input! Try a new game :)\");\r\n                    break;\r\n                }\r\n//                validPlay = true;\r\n            }\r\n\r\n\r\n\r\n//            validPlay = true;\r\n        }\r\n        while(keepPlaying.equalsIgnoreCase(\"Y\"));\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/diceBet.java b/src/diceBet.java
+--- a/src/diceBet.java	(revision 90a6b5b10d70c7e7eb4062e02eb4ddca509962a7)
++++ b/src/diceBet.java	(date 1731532213953)
+@@ -1,124 +1,10 @@
+-import java.util.Scanner;
+ 
+ public class diceBet {
+-    static Scanner sc = new Scanner(System.in);
++
++
+     public static void main(String[] args) {
+-        double accBalance = 100.00;
+-        double[] multiplier = {0.02,0.04,0.06,0.08,0.10,0.12};
+-        double mult =0;
+-        double winnings;
+-        int bet;
+-        int odds;
+-        int dice;
+-        int diceMax= 6;
+-        int diceMin= 1;
+-        String keepPlaying;
+-
+-
+-        do{
+-            //......................................................
+-            //Validation Steps to Ensure the user inputs are correct
+-            //.......................................................
+-            int count= 0;
+-            boolean validBet;
+-            boolean validOdd;
+-            boolean validMult;
+-
+-            do{
+-                System.out.println("Account Balance: " + accBalance);
+-                System.out.print("Place your betting amount: ");
+-                bet = sc.nextInt();
+-                validBet = true;
+-                if ((bet <= 0) || (bet > accBalance)){
+-                    validBet = false;
+-                    System.out.println("\nInvalid bet, " + (bet > accBalance? "insufficient balance":"bet amount to low") + "! Try again");
+-                }
+-            }
+-            while(!validBet);
+-
+-            do{
+-                System.out.print("\nWhat number do you think the dice will land on between 1 and 6: ");
+-                odds = sc.nextInt();
+-                validOdd = true;
+-                if( (odds <= 0) || (odds >6)){
+-                    validOdd = false;
+-                    System.out.println("\nOut of ranch, Try again");
+-                }
+-            }while( !validOdd);
+-
+-            System.out.println("Here are your odd multipliers: ");
+-            while(count < multiplier.length){
+-                System.out.println(count + " : "+multiplier[count] + "%");
+-                count ++;
+-            }
+-            do {
+-            try{
+-                System.out.print("\nSelect a number for the corresponding multiplier: ");
+-                mult = multiplier[sc.nextInt()];
+-                System.out.println("\nYou hava chosen: " + mult + "% as your multiplier.");
+-                validMult = true;
+-
+-            } catch (ArrayIndexOutOfBoundsException e) {
+-                System.out.println("\nSorry you selection is out of bounds!, Try again!.");
+-                validMult = false;
+-            }
+-            }
+-            while(!validMult);
+-
+-            //...............................................
+-            //Random Generation step to play the betting game
+-            //...............................................
+-
+-            System.out.println("\nRolling Dice!..... ");
+-            dice = (int)(Math.random() * (diceMax-diceMin+1)) + diceMin;
+-            System.out.println("\nDice roll landed on: " + dice+ ". You chose "+ (dice != odds? "Wrong :(": "Right :)"));
+-
+-            //....................................................
+-            //Comparing numbers to see if Odds match the dice roll.
+-            //....................................................
+-
+-            if ( dice != odds){
+-                accBalance -= bet;
+-                System.out.println("Sorry your bet was not successful! :(");
+-                System.out.println("\nYou now hava a balance of: "+ accBalance + "$");
+-
+-            }else {
+-                winnings = Math.round(bet * mult);
+-                accBalance += winnings;
+-                System.out.println("Congratulations your bet was successful you won: "+ winnings + "$.");
+-                System.out.println("\nYou now hava a balance of: "+ accBalance + "$");
+-            }
++        playDice play = new playDice(); // this is an object created from the playDice class
++        play.playARound(); // this calls the method that contains the code for the successful play through
++    }
+ 
+-            //.................................................................................
+-            // Checking the current accBalance to determine if the game should end or continue.
+-            //.................................................................................
+-
+-
+-            if (accBalance <= 0){
+-                accBalance = 0;
+-                System.out.println("\nYour current account balance is: " + accBalance);
+-                System.out.println("\nYou can't place any new bets! The Game has ended Try a new game. :)");
+-//                validPlay = false;
+-                break;
+-            }else{
+-                System.out.println("Would you like to keep playing: " + "Y or N");
+-                keepPlaying = sc.next();
+-                if (keepPlaying.equalsIgnoreCase("N")){
+-                    System.out.println( "Thank you for playing the DiceGame. Hope you enjoyed it. :)");
+-                    break;
+-                }else if (keepPlaying.equalsIgnoreCase("Y")){
+-                    System.out.println("Yeh!!. Let's Keep Playing.");
+-                }else{
+-                    System.out.println("Incorrect input! Try a new game :)");
+-                    break;
+-                }
+-//                validPlay = true;
+-            }
+-
+-
+-
+-//            validPlay = true;
+-        }
+-        while(keepPlaying.equalsIgnoreCase("Y"));
+-    }
+ }
+\ No newline at end of file
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Dice Betting Game\r\n\r\n- This ia my first project in Java which i hava uploaded to github.\r\n- This project aims to test the capabilities of the do-while loop syntax.\r\n- //......................................................................\r\n- Logic behind the project.\r\n- //......................................................................\r\n- Each play through begins with accBalance of 100.0\r\n- A bet should be placed\r\n- A side for the dice to land on should be selected within a specified range (odds)\r\n- A multiplier should be chosen within the given options\r\n- A random dice roll is made and compared agains the chosen odd\r\n- If it matches the bet is won and the multiplier is calculated against the placed bet the result is added to accBalance.\r\n- If it fails the initial bet is deducted from the accBalance.\r\n- With each successful play the game ask the user if they whould like to continue.\r\n- If yes the game loops to the top asking for a new bet to be placed and if no the ends \r\n- IF the player losses all the initial funds the game ends.\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	(revision 90a6b5b10d70c7e7eb4062e02eb4ddca509962a7)
++++ b/README.md	(date 1731276122621)
+@@ -1,6 +1,5 @@
+ # Dice Betting Game
+-
+-- This ia my first project in Java which i hava uploaded to github.
++### This is my first project in Java which i hava uploaded to github.
+ - This project aims to test the capabilities of the do-while loop syntax.
+ - //......................................................................
+ - Logic behind the project.
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"cda36850-4b5d-4426-ac78-7e28152964c7\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/diceBet.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/diceBet.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Pekins1&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/Pekins1/Dice_Bet_Game.git\",\r\n    \"accountId\": \"05202cbe-2126-4959-a842-c60e50986ad0\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 2\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2oZtl1qERifVNqmvaeszLHYza2n\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"settings.editor.selected.configurable\": \"org.jetbrains.plugins.github.ui.GithubSettingsConfigurable\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"cda36850-4b5d-4426-ac78-7e28152964c7\" name=\"Changes\" comment=\"\" />\r\n      <created>1731089072915</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1731089072915</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 90a6b5b10d70c7e7eb4062e02eb4ddca509962a7)
++++ b/.idea/workspace.xml	(date 1731464185785)
+@@ -4,8 +4,13 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="cda36850-4b5d-4426-ac78-7e28152964c7" name="Changes" comment="">
++    <list default="true" id="36f9e325-0d07-4ca2-8588-d4d72da91312" name="Changes" comment="Completed code of dicebet">
++      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/diceBet.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/diceBet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diceBet.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -22,16 +27,16 @@
+     &quot;assignee&quot;: &quot;Pekins1&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/Pekins1/Dice_Bet_Game.git",
+-    "accountId": "05202cbe-2126-4959-a842-c60e50986ad0"
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/Pekins1/Dice_Bet_Game.git&quot;,
++    &quot;accountId&quot;: &quot;05202cbe-2126-4959-a842-c60e50986ad0&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="ProjectColorInfo">{
+-  &quot;associatedIndex&quot;: 2
++  &quot;associatedIndex&quot;: 3
+ }</component>
+-  <component name="ProjectId" id="2oZtl1qERifVNqmvaeszLHYza2n" />
++  <component name="ProjectId" id="2ofvGgO1Hqphg6Oi9KFVUSYiiB9" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+@@ -40,20 +45,68 @@
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "master",
++    "git-widget-placeholder": "14f5db7d",
+     "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
++    "kotlin-language-version-configured": "true"
+   }
+ }]]></component>
++  <component name="RunManager">
++    <configuration default="true" type="JetRunConfigurationType">
++      <module name="DiceGame" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
++      <module name="DiceGame" />
++      <option name="filePath" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
++      <module name="DiceGame" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <envs>
++        <env name="PYTHONUNBUFFERED" value="1" />
++      </envs>
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="" />
++      <option name="IS_MODULE_SDK" value="false" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="SCRIPT_NAME" value="" />
++      <option name="PARAMETERS" value="" />
++      <option name="SHOW_COMMAND_LINE" value="false" />
++      <option name="EMULATE_TERMINAL" value="false" />
++      <option name="MODULE_MODE" value="false" />
++      <option name="REDIRECT_INPUT" value="false" />
++      <option name="INPUT_FILE" value="" />
++      <method v="2" />
++    </configuration>
++    <configuration default="true" type="Tox" factoryName="Tox">
++      <module name="DiceGame" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="" />
++      <option name="IS_MODULE_SDK" value="false" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <method v="2" />
++    </configuration>
++  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="cda36850-4b5d-4426-ac78-7e28152964c7" name="Changes" comment="" />
+-      <created>1731089072915</created>
++      <changelist id="36f9e325-0d07-4ca2-8588-d4d72da91312" name="Changes" comment="Completed code of dicebet" />
++      <created>1731273351962</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1731089072915</updated>
++      <updated>1731273351962</updated>
+     </task>
+     <servers />
+   </component>
+@@ -62,10 +115,26 @@
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State />
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="origin/master" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
+           </value>
+         </entry>
+       </map>
+     </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Completed code of dicebet" />
++    <option name="LAST_COMMIT_MESSAGE" value="Completed code of dicebet" />
+   </component>
+ </project>
+\ No newline at end of file
